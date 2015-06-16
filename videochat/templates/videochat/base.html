@@ -1,0 +1,38 @@
+{% load staticfiles %}
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="{% static "css/videochat.css" %}">
+</head>
+<body>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-6">
+		<h1><a href="/">WebRTC</a></h1>
+	</div>
+	<div class="col-md-4">
+		{% if user.is_authenticated %}
+			<p>Hello {{ user.username }}!<br>
+			<a href="logout">Logout</a></p>
+		{% else %}
+			<p><a id="createaccount" href="register">Create Account</a><br>
+			<a id="login" href="login">Login</a></p>
+		{% endif %}
+
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-6">
+			{% block content %}
+			{% endblock %}
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+
+</div>
+</body>
+</html>

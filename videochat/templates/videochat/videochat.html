@@ -1,0 +1,24 @@
+{% extends "videochat/base.html" %}
+{% block content %}
+	<h2>Create chat channel</h2>
+	<p>
+		<form id="chat_form" method="post" action="/videochat/chat/">
+
+            {% csrf_token %}
+            {{ chat_form.chatname }}
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Create Chat" />
+        </form>
+	</p>
+	<div class="row">
+		<div class="col-md-10">
+			{% if user.is_authenticated %}
+				<h3>Your contacts:</h3>
+				{% for con in contacts %}
+					<p>Name: {{con.first_name}}, Email: {{con.email}} </p>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock content %}
