@@ -1,41 +1,36 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from .models import Chat, Contact
 from .forms import UserForm, ChatForm
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import logout
+import uuid
 
 # Create your views here.
-def videochat(request):
+def home(request):
     context = RequestContext(request)
     contacts = Contact.objects.all()
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         chat_form = ChatForm(data=request.POST)
+        #import pdb; pdb.set_trace()
+        #if chat_form.is_valid():
+        # Build the Chat object with a uuid
+        chat_uuid = uuid.uuid4()
+        chat = Chat(chatname=chat_uuid)
+        chat.save()
 
-        if chat_form.is_valid():
-            chat = chat_form.save()
-            chat.save()
-
-            # Update our variable to tell the template registration was successful.
-            chat_status = 'Active'
-            return render_to_response(
-            'videochat/chat.html',
-            {'chat_form': chat_form, 'chat_status': chat_status, 'chatname': chatname},
-            context)
-        # Invalid form or forms - mistakes or something else?
-        # Print problems to the terminal.
-        # They'll also be shown to the user.
-        else:
-            print chat_form.errors
-
+        # If user is logged in, check if a contact id was passed
+        # Redirect to the chat passing the uuid
+        return redirect('chat',chat_uuid)
     # Not a HTTP POST, so we render our form using the ModelForm.
     # These forms will be blank, ready for user input.
     else:
         chat_form = ChatForm()
 
-	return render(request, 'videochat/videochat.html',{'chat_form':chat_form,'contacts':contacts})
+	#return render(request, 'videochat/home.html',{'chat_form':chat_form,'contacts':contacts})
+    return render_to_response('videochat/home.html', {'contacts':contacts}, context)
 
 def register(request):
     # Like before, get the request's context.
@@ -129,9 +124,9 @@ def user_logout(request):
     # Take the user back to the homepage.
     return HttpResponseRedirect('/')
 
-def chat(request):
-    # Like before, get the request's context.
+def chat(request,uuid):
     context = RequestContext(request)
-
-   
-    
+    # Query the database and retrieve the chat details for uuid
+    chatter = Chat.objects.all().get(chatname=uuid)
+    # Do webrtc magic here ????
+    return render_to_response('videochat/chat.html',{'chatter':chatter},context)

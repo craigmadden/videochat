@@ -2,23 +2,27 @@
 {% block content %}
 	<h2>Create chat channel</h2>
 	<p>
-		<form id="chat_form" method="post" action="/videochat/chat/">
+		<form id="chat_form" method="post" action="">
 
             {% csrf_token %}
             {{ chat_form.chatname }}
+			<div class="row">
+				<div class="col-md-4">
+					{% if user.is_authenticated %}
+						<h3>Your contacts:</h3>
+						<select class="form-control">
+							<option value="none">Select a contact</option>
+							{% for con in contacts %}
+								<option value"{{con.id}}"> {{con.first_name}}: {{con.email}} </option>
+							{% endfor %}
+						</select>
+					{% endif %}
+					<!-- Provide a button to click to submit the form. -->
+            		<input type="submit" name="submit" value="Create Chat" />
+				</div>
+			</div>
 
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Create Chat" />
         </form>
 	</p>
-	<div class="row">
-		<div class="col-md-10">
-			{% if user.is_authenticated %}
-				<h3>Your contacts:</h3>
-				{% for con in contacts %}
-					<p>Name: {{con.first_name}}, Email: {{con.email}} </p>
-				{% endfor %}
-			{% endif %}
-		</div>
-	</div>
+	
 {% endblock content %}

@@ -1,10 +1,17 @@
 {% extends "videochat/base.html" %}
 {% block content %}
-	<h2>Chat channel</h2>
+	<h2>Chat In Process</h2>
+	<h4 id = "status">Waiting for other member to join</h4>
 	<div class="row">
-		<div class="col-md-10">
-			Chat status: {{chat_form.chat_status}}
-			Chat name: {{chat_form.chatname}}
+		<div class="col-md-8">
+			This is your chat URL path: http://www.gabagab.com/chat/{{chatter.chatname}}
 		</div>
 	</div>
+	<div class="row">
+		<div id="localvideo" class="col-md-4" >
+			<img src="" height="250" width="250px" class="img-rounded"><br>Local video
+		</div>
+		<div id="remotevideo" class="col-md-4">
+			<img src="" height="250" width="250px" class="img-rounded"><br>Remote video
+		</div>
 {% endblock content %}

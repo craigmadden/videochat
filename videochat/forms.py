@@ -12,4 +12,4 @@ class UserForm(forms.ModelForm):
 class ChatForm(forms.ModelForm):
 	class Meta:
 		model = Chat
-		fields = ('chatname',)
+		fields = ('contact',)
