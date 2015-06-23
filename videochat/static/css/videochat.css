@@ -5,3 +5,8 @@ body {
 h3 a {
 	color: #fca205;
 }
+
+video {
+	height: 275px;
+	width: 275px;
+}
