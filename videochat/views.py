@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import logout
 import uuid
+import random
 
 # Create your views here.
 def home(request):
@@ -17,7 +18,9 @@ def home(request):
         #import pdb; pdb.set_trace()
         #if chat_form.is_valid():
         # Build the Chat object with a uuid
-        chat_uuid = uuid.uuid4()
+        #chat_uuid = uuid.uuid4()
+        #chat = Chat(chatname=chat_uuid)
+        chat_uuid = random.randrange(30000,60000)
         chat = Chat(chatname=chat_uuid)
         chat.save()
 
@@ -128,5 +131,18 @@ def chat(request,uuid):
     context = RequestContext(request)
     # Query the database and retrieve the chat details for uuid
     chatter = Chat.objects.all().get(chatname=uuid)
-    # Do webrtc magic here ????
-    return render_to_response('videochat/chat.html',{'chatter':chatter},context)
+    # If chat status is waiting, call the chat_join.html template
+    if chatter.chat_status == "Waiting" :
+        return render_to_response('videochat/chat_join.html',{'chatter':chatter},context)
+    elif chatter.chat_status == "Initialize":
+        # If chat status is initializing, call the chat_init.html template
+        return render_to_response('videochat/chat_init.html',{'chatter':chatter},context)
+    
+def update_status(request):
+    # Update status of specified Chat
+    uuid = request.POST['uuid']
+    status = request.POST['status']
+    chat = Chat.objects.all().get(chatname=uuid)
+    chat.chat_status=status
+    chat.save()
+    return HttpResponse("ok")

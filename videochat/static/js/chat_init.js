@@ -13,6 +13,13 @@ var peer = new Peer(rtcid,{ key: 'lwjd5qra8257b9', debug: 3, config: {'iceServer
   { url: 'stun:stun.l.google.com:19302' } // Pass in optional STUN and TURN server for maximum network compatibility
 ]}});
 
+var data = {'uuid':rtcid, 'status':'Waiting','csrfmiddlewaretoken': csrftoken};
+var args = {type:"POST", dataType:'json', url:"/update_status/",data:data};
+$.post("/update_status/", data, function(data) {
+   console.log(data);
+});
+
+
 peer.on('open', function(){
   $('#my-id').text(peer.id);
 });

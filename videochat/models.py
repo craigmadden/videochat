@@ -16,10 +16,10 @@ class Chat(models.Model):
     chatname = models.CharField(max_length=100)
     chatstart = models.DateTimeField(default=timezone.now)
     chatend = models.DateTimeField(null=True)
-    STATUS_CODES = (("Active","Active"),
+    STATUS_CODES = (("Initialize","Initializing"),("Active","Active"),
 	        ("Waiting","Waiting"),
 	        ("Terminated","Terminated"))
-    chat_status = models.CharField(max_length=10, choices=STATUS_CODES, default="Waiting")
+    chat_status = models.CharField(max_length=10, choices=STATUS_CODES, default="Initialize")
     user = models.ForeignKey(User, null=True, related_name="chat")
     contact = models.ForeignKey(Contact, null=True, related_name="chat")
 
