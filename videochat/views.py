@@ -145,4 +145,4 @@ def update_status(request):
     chat = Chat.objects.all().get(chatname=uuid)
     chat.chat_status=status
     chat.save()
-    return HttpResponse("ok")
+    return HttpResponse("Status set to: " + status)
