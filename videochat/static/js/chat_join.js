@@ -27,14 +27,25 @@ function main() {
 	  { url: 'stun:stun.l.google.com:19302' } // Pass in optional STUN and TURN server for maximum network compatibility
 	]}});
 
+	peer.on('close', function() {
+		console.log("The connection has been closed.")
+	});
+
 	call_button = document.getElementById('join-call');
 	call_button.addEventListener('click', function() {
 		joinCall(peer,rtcid,window.localStream)
 	},false);
+
+	end_call_button = document.getElementById('end-call');
+	end_call_button.addEventListener('click', function() {
+		endCall(peer)
+	}, false);
 }
 
 function joinCall(peer,rtcid,mediastream){
 	var call = peer.call(rtcid, mediastream);
+
+	$('#join-call').hide()
 
 	peer.on('call', function(call){
 		call.answer(mediastream);
@@ -50,6 +61,9 @@ function joinCall(peer,rtcid,mediastream){
 	});
 }
 
+function endCall(peer){
+	peer.destroy(true)
+	window.location.href = "/";
+}
+
 main();
-
-

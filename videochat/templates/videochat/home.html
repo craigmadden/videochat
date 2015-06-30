@@ -1,7 +1,11 @@
 {% extends "videochat/base.html" %}
 {% block content %}
-	<h2>Video connection</h2>
-	<p>
+	<div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Start a video chat</h1>
+        <p>Click the button below to start a video chat and then send the link to someone you know.</p>
 		<form id="chat_form" method="post" action="">
 
             {% csrf_token %}
@@ -9,7 +13,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					{% if user.is_authenticated %}
-						<h3>Your contacts:</h3>
+						<h4>Your contacts:</h4>
 						<select class="form-control">
 							<option value="none">Select a contact</option>
 							{% for con in contacts %}
@@ -18,11 +22,18 @@
 						</select>
 					{% endif %}
 					<!-- Provide a button to click to submit the form. -->
-            		<input type="submit" name="submit" value="Create Chat" />
+            		<button type="submit" class="btn btn-primary" name="submit">Create Chat</button>
+            		
 				</div>
 			</div>
-
+			<div class="row">
+				<div class="col-md-4">
+					<input type="text" name="chatname" size="10" >
+					<button type="submit"class="btn btn-success" name="joinchat">Join Chat</button>
+				</div>
+			</div>
         </form>
-	</p>
+      </div>
+    </div>
 	
 {% endblock content %}

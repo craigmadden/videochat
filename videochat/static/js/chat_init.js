@@ -56,6 +56,16 @@ function main() {
     // Return to step 2 if error occurs
     // update some UI items
   });
+
+  end_call_button = document.getElementById('end-call');
+  end_call_button.addEventListener('click', function() {
+    endCall(peer)
+  }, false);
+}
+
+function endCall(peer){
+  peer.destroy(true)
+  window.location.href = "/";
 }
 
 main();

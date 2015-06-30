@@ -1,29 +1,29 @@
 {% extends "videochat/base.html" %}
 {% load staticfiles %}
 {% block content %}
-	<div class="pure-g">
+  <!-- Video area -->
+  <div id="chatvideo" class="row">
+    <div class="col-md-6">
+      <video id="their-video" autoplay></video>
+    </div>
+    <div class="col-md-4">
+      <video id="my-video" muted="true" autoplay></video>
+    </div>
+  </div>
 
-      <!-- Video area -->
-      <div class="pure-u-2-3" id="video-container">
-        <video id="their-video" autoplay></video>
-        <video id="my-video" muted="true" autoplay></video>
-      </div>
-
-      <!-- Steps -->
-      <div class="pure-u-1-3">
-        
-        <!-- Make calls to others -->
-        <div id="step2">
-          <p>Your id: <span id="my-id">...</span></p>
-          <p>Share this id with others so they can call you.</p>
-        </div>
-
-        <!-- Call in progress -->
-        <div id="step3">
-          <p>Currently in call with <span id="their-id">...</span></p>
-          <p><a href="#" class="pure-button pure-button-error" id="end-call">End call</a></p>
-        </div>
-      </div>
+  <!-- Steps -->
+  <div id="chatinfo" class="row">
+    <div class="col-md-6">
+      <p>Your id: <span id="my-id">...</span></p>
+      <p>Share this id with others so they can join you.</p>
+    </div>
+  </div>
+  <div id="chatcontrol" class="row">
+    <!-- Call in progress -->
+    <div class="col-md-4">
+      <p>Currently in call with <span id="their-id">...</span></p>
+      <p><a class="btn btn-xs btn-danger" role="button" href="#" id="end-call">End call</a></p>
+    </div>
   </div>
 
 {% endblock content %}

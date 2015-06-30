@@ -1,0 +1,15 @@
+{% extends "videochat/base.html" %}
+{% block content %}
+	<h2>Account Profile</h2>
+
+	        {% if user.is_authenticated %}
+	        <strong>Things you can do</strong>
+
+		        Edit Contacts
+
+		        Add Contacts
+	        <a href="/">Return to the homepage.</a><br />
+	        {% else %}
+
+	        {% endif %}
+{% endblock content %}

@@ -16,17 +16,23 @@ def home(request):
         # Attempt to grab information from the raw form information.
         chat_form = ChatForm(data=request.POST)
         #import pdb; pdb.set_trace()
-        #if chat_form.is_valid():
         # Build the Chat object with a uuid
-        #chat_uuid = uuid.uuid4()
-        #chat = Chat(chatname=chat_uuid)
-        chat_uuid = random.randrange(30000,60000)
-        chat = Chat(chatname=chat_uuid)
-        chat.save()
+        chatid = request.POST['chatname']
+        contact = False
+        if chatid:
+            return redirect('chat',chatid)
+        elif contact:
+            pass
+        else:
+            #chat_uuid = uuid.uuid4()
+            chat_uuid = random.randrange(30000,60000)
+            chat = Chat(chatname=chat_uuid)
+            chat.save()
 
-        # If user is logged in, check if a contact id was passed
-        # Redirect to the chat passing the uuid
-        return redirect('chat',chat_uuid)
+            # If user is logged in, check if a contact id was passed
+            # Redirect to the chat passing the uuid
+            return redirect('chat',chat_uuid)
+
     # Not a HTTP POST, so we render our form using the ModelForm.
     # These forms will be blank, ready for user input.
     else:
@@ -34,6 +40,10 @@ def home(request):
 
 	#return render(request, 'videochat/home.html',{'chat_form':chat_form,'contacts':contacts})
     return render_to_response('videochat/home.html', {'contacts':contacts}, context)
+
+def user_profile(request):
+    context = RequestContext(request)
+    return render_to_response('videochat/profile.html', {}, context)
 
 def register(request):
     # Like before, get the request's context.

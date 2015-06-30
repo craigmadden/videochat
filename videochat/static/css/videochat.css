@@ -1,12 +1,37 @@
 body {
 	padding-left: 20px;
-	padding-top: 30px;
+	min-height: 2000px;
+  	padding-top: 70px;
 }
 h3 a {
 	color: #fca205;
 }
 
-video {
-	height: 275px;
-	width: 275px;
+#my-video {
+	margin: 0;
+	height: 200px;
+	width: 200px;
+	padding: 20px;
+}
+
+#their-video {
+	height: 300px;
+	width: 400px;
+	padding: 20px;
+}
+
+.jumbotron {
+	padding-top: 0px;
+}
+
+#chatvideo {
+	background-color: #dadada;
+}
+
+#chatinfo {
+	background-color: #ededed;
+}
+
+#chatcontrol {
+	background-color: #dadada;
 }
