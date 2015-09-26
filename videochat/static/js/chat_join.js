@@ -12,6 +12,9 @@ function main() {
 	if(navigator.getUserMedia) {
 		navigator.getUserMedia({audio: true, video: true}, function(stream){
 		    // Set your video displays
+		    $('#chatinfo').show();
+		    $('#chatinstructions').hide();
+        	$('#chatvideo').show();
 		    $('#my-video').prop('src', URL.createObjectURL(stream));
 
 		    window.localStream = stream;
@@ -45,7 +48,7 @@ function main() {
 function joinCall(peer,rtcid,mediastream){
 	var call = peer.call(rtcid, mediastream);
 
-	$('#join-call').hide()
+	//$('#join-call').hide()
 
 	peer.on('call', function(call){
 		call.answer(mediastream);
@@ -53,6 +56,11 @@ function joinCall(peer,rtcid,mediastream){
 
 	call.on('stream', function(stream){
     	$('#their-video').prop('src', URL.createObjectURL(stream));
+    	// Show the "chatcontrol" div that contains the end-call button
+    	$('#chatcontrol').show();
+    	// Hide the Join button once the connection is established
+    	$('#chatinfo').hide();
+
   	});
 
   	$.post("/update_status/", {'uuid':rtcid, 'status':'Active','csrfmiddlewaretoken': csrftoken}, 

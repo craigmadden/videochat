@@ -6,7 +6,18 @@
 
 function main() {
   // Get the chat ID from the URL
+  //sessid = sessionStorage.getItem('chatid');
   rtcid = window.location.href.split('/').pop();
+  /*
+  if(sessid != rtcid) {
+    sessionStorage.setItem('chatid',rtcid);
+    console.log("SessionID: " + sessid)
+  } else {
+    console.log("Equal")
+    window.location="/";
+  }
+  */
+
 
   // Compatibility shim
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -14,6 +25,9 @@ function main() {
   if(navigator.getUserMedia) {
     navigator.getUserMedia({audio: true, video: true}, function(stream){
         // Set your video displays
+        $('#chatinfo').show()
+        $('#chatinstructions').hide()
+        $('#chatvideo').show()
         $('#my-video').prop('src', URL.createObjectURL(stream));
 
         window.localStream = stream;
@@ -48,6 +62,9 @@ function main() {
     // Wait for stream on the call, then set peer video display
     call.on('stream', function(stream){
       $('#their-video').prop('src', URL.createObjectURL(stream));
+      // Show the "chatcontrol" div that contains the end-call button
+      $('#chatcontrol').show();
+      $('#chatinfo').hide();
     });
   });
 
@@ -61,11 +78,22 @@ function main() {
   end_call_button.addEventListener('click', function() {
     endCall(peer)
   }, false);
+
+  // Event listener for send email invite button
+  send_button = document.getElementById('send_call');
+  // When button is clicked, get value from contact drop-down menu
+  send_button.addEventListener('click', function() {
+    sendEmail(contact)
+  }, false);
 }
 
 function endCall(peer){
-  peer.destroy(true)
+  peer.destroy(true);
   window.location.href = "/";
 }
 
+function sendEmail(contact){
+  // AJAX funtion call here
+
+}
 main();

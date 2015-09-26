@@ -1,6 +1,5 @@
 body {
 	padding-left: 20px;
-	min-height: 2000px;
   	padding-top: 70px;
 }
 h3 a {
@@ -24,14 +23,34 @@ h3 a {
 	padding-top: 0px;
 }
 
+#chatinstructions {
+	background-color: #dadada;
+}
+
 #chatvideo {
 	background-color: #dadada;
+	display: none;
 }
 
 #chatinfo {
 	background-color: #ededed;
+	display: none;
 }
 
 #chatcontrol {
 	background-color: #dadada;
+	display: none;
 }
+
+#homelink {
+	text-decoration: none;
+	color: white;
+}
+
+#edit-contact {
+	display: none;
+}
+
+.voffset { margin-top: 2px;}
+.voffset1 {margin-top: 5px;}
+.voffset2 {margin-top: 10px;}

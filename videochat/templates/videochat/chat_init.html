@@ -2,6 +2,13 @@
 {% load staticfiles %}
 {% block content %}
   <!-- Video area -->
+  <div id="chatinstructions" class="row">
+      <div class="col-md-10">
+        <h3>Allow or Share access to your computers camera and microphone</h3>
+        <p>Click the button at the top of your browser</p>
+        <p>Here are some examples of what you might be seeing</p>
+      </div>
+  </div>
   <div id="chatvideo" class="row">
     <div class="col-md-6">
       <video id="their-video" autoplay></video>
@@ -13,7 +20,16 @@
 
   <!-- Steps -->
   <div id="chatinfo" class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
+      {% if user.is_authenticated %}
+        <h4>Your contacts:</h4>
+        <select class="form-control">
+          <option value="none">Select a contact</option>
+          {% for con in contacts %}
+            <option value"{{con.id}}"> {{con.first_name}}: {{con.email}} </option>
+          {% endfor %}
+        </select>
+      {% endif %}
       <p>Your id: <span id="my-id">...</span></p>
       <p>Share this id with others so they can join you.</p>
     </div>

@@ -1,15 +1,35 @@
 {% extends "videochat/base.html" %}
+{% load staticfiles %}
 {% block content %}
 	<h2>Account Profile</h2>
 
-	        {% if user.is_authenticated %}
-	        <strong>Things you can do</strong>
+	  {% if user.is_authenticated %}
+		<div class="row">
+			<form id="contact_form" class="form-inline" method="post" action="">
+				{% csrf_token %}
+				<div class="col-md-8">
+						<h4>Your contacts:</h4>
+						<select class="form-control" id="contact-email" name="contact-email">
+							<option value="none">Select a contact to edit</option>
+							{% for con in contacts %}
+								<option value"{{con.id}}"> {{con.first_name}}: {{con.email}} </option>
+							{% endfor %}
+						</select>
+						<button class="btn btn-primary" id="edit-contact">Edit Contact</button>
+				</div>
+			</form>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<a href="/add_contact" class="btn btn-primary voffset2">Add Contact</a>
+			</div>
+		</div>
 
-		        Edit Contacts
-
-		        Add Contacts
-	        <a href="/">Return to the homepage.</a><br />
-	        {% else %}
-
-	        {% endif %}
+	        
+		  {% else %}
+		        	You are not logged in
+		  {% endif %}
 {% endblock content %}
+{% block footer %}
+	<script src="{% static "js/profile.js" %}"></script>
+{% endblock footer %}
